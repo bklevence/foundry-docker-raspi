@@ -1,5 +1,6 @@
 # foundry-docker-raspi
-How I selfhosted Foundry VTT with Docker on my RasPi.
+Selfhosting Foundry VTT with Docker on a RasPi with Asset Data Folders on a USB Thumbdrive.
+
 Keeping this as a mess of markdown for now, will try to comeback and clean up as well as post example files...
 
 Initial help from here:
@@ -8,6 +9,8 @@ https://www.youtube.com/watch?v=ib55sgDYZbc
 
 Image Raspi w/ Raspian (I used Pi3 B v1.2)
 Enable SSH, VNC (supposedly can now be done using RasPi Imager)
+Change admin password, rest of instructions assume default "pi" username.
+
 Purchase domain from Namecheap
 Create Cloudflare Account
 
