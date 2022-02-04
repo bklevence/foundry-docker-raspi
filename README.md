@@ -150,10 +150,9 @@ https://raspberrytips.com/mount-usb-drive-raspberry-pi/
 Once complete
 
 Edit /etc/fstab with below, it's especially critical to apply UID GID or it will NOT work. 
-
+```
     UUID=yourusbuuid        /home/pi/docker/foundry/usb        exfat defaults,user,uid=1000,gid=1000,noatime  0 0
-
-
+```
 Run docker compose to make FoundryVTT, check error logs while it's starting, make sure container is healthy once running locally!
 
 Point namecheap to Cloudflare, point cloudflare to public IP, enable DNSSEC, create token (edit zone dns template enable all zones).
@@ -162,7 +161,7 @@ Create A record and CNAME on cloudflare using subdomain. Enable full (NOT FLEX) 
 Create /home/pi/docker/nginx then install using below docker-compose.yml and config.json, portforward 80 and 443 on router
 
 d-c.yml:
-
+```
     version: '2'
     services:
       app:
@@ -191,19 +190,19 @@ d-c.yml:
           MYSQL_PASSWORD: 'changeme'
         volumes:
           - ./data/mysql:/var/lib/mysql
-
+```
 config.json:
-    {
-      "database": {
-        "engine": "mysql",
-        "host": "db",
-        "name": "npm",
-        "user": "changeme",
-        "password": "changeme",
-        "port": 3306
-      }
-    }
-
+```  {
+          "database": {
+            "engine": "mysql",
+            "host": "db",
+            "name": "npm",
+            "user": "changeme",
+            "password": "changeme",
+            "port": 3306
+          }
+        }
+```
 
 Login to nginx and create account, create proxy host for Foundry->Cloudflare, try to enable SSL through proxy host and not ssl tab(give it a min). 
 
