@@ -113,15 +113,25 @@ We assign this docker container the name “portainer” so we can quickly ident
 Additionally, we also tell the Docker manager that we want it to restart this Docker if it is ever unintentionally offline.
 
 
-Create docker-compose.yml for FoundryVTT (see my example)...
+Create /home/pi/docker/foundry/docker-compose.yml  for FoundryVTT (see my example in repo)...
+
+Mount usb in /home/pi/docker/foundry/
+https://raspberrytips.com/mount-usb-drive-raspberry-pi/
+
+Once complete
+
+Edit /etc/fstab with below, it's especially critical to apply UID GID or it will NOT work. 
+
+    UUID=yourusbuuid        /home/pi/docker/foundry/usb        exfat defaults,user,uid=1000,gid=1000,noatime  0 0
+
+
+Run docker compose to make FoundryVTT, check error logs while it's starting, make sure container is healthy once running locally!
 
 Point namecheap to Cloudflare, point cloudflare to public IP, enable DNSSEC, create token (edit zone dns template enable all zones).
 Create A record and CNAME on cloudflare using subdomain. Enable full (NOT FLEX) encryption between Cloudflare and host or nginx will not work later)
 
-Run docker compose to make FoundryVTT
-
 Create nginx using docker, portforward 80 and 443 on router
 
-Login to nginx and create account, create proxy host, try to enable SSL through proxy host and not ssl tab(give it a min). 
+Login to nginx and create account, create proxy host for Foundry->Cloudflare, try to enable SSL through proxy host and not ssl tab(give it a min). 
 
 
