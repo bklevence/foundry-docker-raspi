@@ -12,8 +12,8 @@ Docker/Docker-Compose https://dev.to/elalemanyo/how-to-install-docker-and-docker
 
 Prerequisites
 
-    Raspberry Pi with a running Raspbian OS
-    SSH connection enabled
+Raspberry Pi with a running Raspbian OS
+SSH connection enabled
 
 To do this you can check Raspberry Pi Setup.
 1. Update and Upgrade
@@ -21,13 +21,13 @@ To do this you can check Raspberry Pi Setup.
 First of all make sure that the system runs the latest version of the software.
 Run the command:
 
-sudo apt-get update && sudo apt-get upgrade
+    sudo apt-get update && sudo apt-get upgrade
 
 2. Install Docker
 
 Now is time to install Docker! Fortunately, Docker provides a handy install script for that, just run:
 
-curl -sSL https://get.docker.com | sh
+    curl -sSL https://get.docker.com | sh
 
 3. Add a Non-Root User to the Docker Group
 
@@ -36,39 +36,39 @@ However, you could also add your non-root user to the Docker group which will al
 
 The syntax for adding users to the Docker group is:
 
-sudo usermod -aG docker [user_name]
+    sudo usermod -aG docker [user_name]
 
 To add the permissions to the current user run:
 
-sudo usermod -aG docker ${USER}
+    sudo usermod -aG docker ${USER}
 
 Check it running:
 
-groups ${USER}
+    groups ${USER}
 
 Reboot the Raspberry Pi to let the changes take effect.
 4. Install Docker-Compose
 
 Docker-Compose usually gets installed using pip3. For that, we need to have python3 and pip3 installed. If you don't have it installed, you can run the following commands:
 
-sudo apt-get install libffi-dev libssl-dev
-sudo apt install python3-dev
-sudo apt-get install -y python3 python3-pip
+    sudo apt-get install libffi-dev libssl-dev
+    sudo apt install python3-dev
+    sudo apt-get install -y python3 python3-pip
 
 Once python3 and pip3 are installed, we can install Docker-Compose using the following command:
 
-sudo pip3 install docker-compose
+    sudo pip3 install docker-compose
 
 5. Enable the Docker system service to start your containers on boot
 
 This is a very nice and important addition. With the following command you can configure your Raspberry Pi to automatically run the Docker system service, whenever it boots up.
 
-sudo systemctl enable docker
+    sudo systemctl enable docker
 
 With this in place, containers with a restart policy set to always or unless-stopped will be re-started automatically after a reboot.
 
 
-Run docker-compose version
+    docker-compose version
 
 
 Install Portainer GUI https://pimylifeup.com/raspberry-pi-portainer/:
@@ -83,8 +83,8 @@ Luckily for us, this is a very simple process as Portainer runs within a Docker 
 
 As Portainer is available as a Docker container on the official Docker hub, we can pull the latest version using the following command.
 
-sudo docker pull portainer/portainer-ce:latest
-Copy
+    sudo docker pull portainer/portainer-ce:latest
+
 
 This command will download the docker image to your device, which will allow us to run it.
 
@@ -96,8 +96,7 @@ Telling Docker to run this container requires us to pass in a few extra paramete
 
 In the terminal on your Pi, run the following command to start up Portainer.
 
-sudo docker run -d -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
-Copy
+    sudo docker run -d -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
 
 A few of the big things we do here is first define the ports we want Portainer to have access to. In our case, this will be port 9000.
 
