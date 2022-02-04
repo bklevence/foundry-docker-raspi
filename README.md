@@ -2,6 +2,9 @@
 How I selfhosted Foundry VTT with Docker on my RasPi.
 Keeping this as a mess of markdown for now, will try to comeback and clean up as well as post example files...
 
+Initial help from here:
+https://www.youtube.com/watch?v=ib55sgDYZbc
+
 
 Image Raspi w/ Raspian (I used Pi3 B v1.2)
 Enable SSH, VNC (supposedly can now be done using RasPi Imager)
