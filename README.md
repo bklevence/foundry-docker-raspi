@@ -115,6 +115,35 @@ Additionally, we also tell the Docker manager that we want it to restart this Do
 
 Create /home/pi/docker/foundry/docker-compose.yml  for FoundryVTT (see my example in repo)...
 
+    ---
+    version: "3.8"
+
+    services:
+      foundry:
+        image: felddy/foundryvtt:release
+        hostname: change.me.com
+        init: true
+        privileged: true
+        restart: "unless-stopped"
+        volumes:
+          - type: bind
+            source: /home/pi/docker/foundry/usb
+            target: /data 
+        environment:
+          - FOUNDRY_PASSWORD=changeme
+          - FOUNDRY_USERNAME=changeme
+          - FOUNDRY_ADMIN_KEY=changeme
+          - FOUNDRY_PROXY_PORT=443
+          - FOUNDRY_PROXY_SSL=true 
+          - FOUNDRY_UID=1000
+          - FOUNDRY_GID=1000
+        ports:
+          - target: 30000
+            published: 30000
+            protocol: tcp
+
+
+
 Mount usb in /home/pi/docker/foundry/
 https://raspberrytips.com/mount-usb-drive-raspberry-pi/
 
@@ -130,8 +159,53 @@ Run docker compose to make FoundryVTT, check error logs while it's starting, mak
 Point namecheap to Cloudflare, point cloudflare to public IP, enable DNSSEC, create token (edit zone dns template enable all zones).
 Create A record and CNAME on cloudflare using subdomain. Enable full (NOT FLEX) encryption between Cloudflare and host or nginx will not work later)
 
-Create nginx using docker, portforward 80 and 443 on router
+Create /home/pi/docker/nginx then install using below docker-compose.yml and config.json, portforward 80 and 443 on router
+
+d-c.yml:
+
+    version: '2'
+    services:
+      app:
+        image: 'jc21/nginx-proxy-manager:latest'
+        restart: unless-stopped
+        ports:
+          - '80:80'
+          - '81:81'
+          - '443:443'
+        environment:
+          DB_MYSQL_HOST: "db"
+          DB_MYSQL_PORT: 3306
+          DB_MYSQL_USER: "changeme"
+          DB_MYSQL_PASSWORD: "changeme"
+          DB_MYSQL_NAME: "npm"
+        volumes:
+          - ./data:/data
+          - ./letsencrypt:/etc/letsencrypt
+      db:
+        image: 'yobasystems/alpine-mariadb:10.4.17'
+        restart: unless-stopped
+        environment:
+          MYSQL_ROOT_PASSWORD: 'changeme'
+          MYSQL_DATABASE: 'npm'
+          MYSQL_USER: 'changeme'
+          MYSQL_PASSWORD: 'changeme'
+        volumes:
+          - ./data/mysql:/var/lib/mysql
+
+config.json:
+    {
+      "database": {
+        "engine": "mysql",
+        "host": "db",
+        "name": "npm",
+        "user": "changeme",
+        "password": "changeme",
+        "port": 3306
+      }
+    }
+
 
 Login to nginx and create account, create proxy host for Foundry->Cloudflare, try to enable SSL through proxy host and not ssl tab(give it a min). 
+
 
 
