@@ -1,6 +1,8 @@
 # foundry-docker-raspi
 Selfhosting Foundry VTT with Docker on a RasPi with Asset Data Folders on a USB Thumbdrive.
 
+File structure of repo assumes you copy or make docker directory in /home/pi
+
 Keeping this as a mess of markdown for now, will try to comeback and clean up as well as post example files...
 
 Initial help from here:
