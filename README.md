@@ -111,7 +111,7 @@ Additionally, we also tell the Docker manager that we want it to restart this Do
 Create docker-compose.yml for FoundryVTT (see my example)...
 
 Point namecheap to Cloudflare, point cloudflare to public IP, enable DNSSEC, create token (edit zone dns template enable all zones).
-Create A record and CNAME on cloudflare using subdomain.
+Create A record and CNAME on cloudflare using subdomain. Enable full (NOT FLEX) encryption between Cloudflare and host or nginx will not work later)
 
 Run docker compose to make FoundryVTT
 
