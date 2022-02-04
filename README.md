@@ -148,7 +148,7 @@ https://raspberrytips.com/mount-usb-drive-raspberry-pi/
 
 Once complete
 
-Edit /etc/fstab with below, it's especially critical to apply UID GID or it will NOT work. 
+Edit /etc/fstab with below, it's especially critical to apply UID GID or it will NOT work. Please also check your format type, mine was exfat...
 ```
     UUID=yourusbuuid        /home/pi/docker/foundry/usb        exfat defaults,user,uid=1000,gid=1000,noatime  0 0
 ```
